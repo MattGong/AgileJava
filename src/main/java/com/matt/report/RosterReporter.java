@@ -30,7 +30,6 @@ public class RosterReporter {
 	}
 
 	void writeBody(StringBuilder buffer) {
-
 		for (Student student : session.getAllStudents()) {
 			buffer.append(student.getName());
 			buffer.append(NEWLINE);

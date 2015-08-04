@@ -11,7 +11,8 @@ public class Student {
 	public static final int CREDITS_REQUIRED_FOR_FULL_TIME = 12;
 	public static final String IN_STATE = "CO";
 	private List<Grade> grades = new ArrayList<Grade>();
-	private boolean isHonors = false;
+	private GradingStrategy gradingStrategy = new RegularGradingsStrategy();
+	
 
 	public Student(String name) {
 		this.name = name;
@@ -53,29 +54,15 @@ public class Student {
 		if(grades.isEmpty()) return 0.0;
 		double total = 0.0;
 		for(Grade grade : grades){
-			total += gradePointsFor(grade);
+			total += gradingStrategy.getGradePointsFor(grade);
 		}
 		
 		return total / grades.size();
 	}
 	
-	private int gradePointsFor(Grade grade){
-		int points = basicGradePointsFor(grade);
-		if(isHonors) if(points > 0) points += 1;
-		return points;
-		
+	
+	public void setGradingStrategy(GradingStrategy gradingStrategy) {
+		this.gradingStrategy = gradingStrategy;	
 	}
 
-	private int basicGradePointsFor(Grade grade) {
-		if(grade == Grade.A) return 4;
-		if(grade == Grade.B) return 3;
-		if(grade == Grade.C) return 2;
-		if(grade == Grade.D) return 1;
-		return 0;
-	}
-
-	public void setHonors() {
-		isHonors  = true;
-		
-	}
 }

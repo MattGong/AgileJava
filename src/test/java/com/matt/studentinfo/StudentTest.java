@@ -73,11 +73,12 @@ public void testCreate(){
 		return student;
 	}
 	
-	private Student createHonorsStudent() {
+	public Student createHonorsStudent(){
 		Student student = new Student("a");
-		student.setHonors();
+		student.setGradingStrategy(new HonorsGradingStrategy());
 		return student;
 	}
+	
 
 
 	private void assertGpa(Student student, double expectedGpa){
