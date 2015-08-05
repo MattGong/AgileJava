@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ClassDiagram>
-    <Class name="com.matt.studentinfo.HonorsGradingStrategy" x="450" y="47">
+    <Class name="com.matt.studentinfo.HonorsGradingStrategy" x="364" y="41">
         <AttributesDisplayFilter public-accepted="true"
             private-accepted="true" protected-accepted="true"
             default-accepted="true" static-accepted="false"/>
@@ -8,9 +8,9 @@
             private-accepted="false" protected-accepted="false"
             default-accepted="false" static-accepted="false"
             accessors-accepted="false" constructors-accepted="false"/>
-        <Extension destinationClassName="com.matt.studentinfo.GradingStrategy"/>
+        <Extension destinationClassName="com.matt.studentinfo.BasicGradingStrategy"/>
     </Class>
-    <Class name="com.matt.studentinfo.Student" x="687" y="297">
+    <Class name="com.matt.studentinfo.Student" x="703" y="257">
         <AttributesDisplayFilter public-accepted="true"
             private-accepted="true" protected-accepted="true"
             default-accepted="true" static-accepted="false"/>
@@ -24,18 +24,9 @@
         <Association
             destinationClassName="com.matt.studentinfo.Student.Grade"
             endpointName="grades" kind="Simple"/>
+        <Communication destinationClassName="com.matt.studentinfo.GradingStrategy"/>
     </Class>
-    <Class name="com.matt.studentinfo.RegularGradingsStrategy" x="445" y="110">
-        <AttributesDisplayFilter public-accepted="true"
-            private-accepted="true" protected-accepted="true"
-            default-accepted="true" static-accepted="false"/>
-        <MethodDisplayFilter public-accepted="true"
-            private-accepted="false" protected-accepted="false"
-            default-accepted="false" static-accepted="false"
-            accessors-accepted="false" constructors-accepted="false"/>
-        <Extension destinationClassName="com.matt.studentinfo.GradingStrategy"/>
-    </Class>
-    <Class name="com.matt.report.CourseReport" x="291" y="102">
+    <Class name="com.matt.report.CourseReport" x="159" y="135">
         <AttributesDisplayFilter public-accepted="true"
             private-accepted="true" protected-accepted="true"
             default-accepted="true" static-accepted="false"/>
@@ -59,7 +50,7 @@
             endpointName="students" kind="Simple"/>
         <Communication destinationClassName="com.matt.studentinfo.Student"/>
     </Class>
-    <Class name="com.matt.report.RosterReporter" x="490" y="180">
+    <Class name="com.matt.report.RosterReporter" x="367" y="146">
         <AttributesDisplayFilter public-accepted="true"
             private-accepted="true" protected-accepted="true"
             default-accepted="true" static-accepted="false"/>
@@ -72,7 +63,7 @@
             endpointName="session" kind="Simple"/>
         <Communication destinationClassName="com.matt.studentinfo.CourseSession"/>
     </Class>
-    <Class name="com.matt.studentinfo.Student.Grade" x="722" y="445">
+    <Class name="com.matt.studentinfo.GradingStrategy" x="687" y="134">
         <AttributesDisplayFilter public-accepted="true"
             private-accepted="true" protected-accepted="true"
             default-accepted="true" static-accepted="false"/>
@@ -81,7 +72,7 @@
             default-accepted="false" static-accepted="false"
             accessors-accepted="false" constructors-accepted="false"/>
     </Class>
-    <Class name="com.matt.studentinfo.GradingStrategy" x="689" y="71">
+    <Class name="com.matt.studentinfo.Student.Grade" x="721" y="389">
         <AttributesDisplayFilter public-accepted="true"
             private-accepted="true" protected-accepted="true"
             default-accepted="true" static-accepted="false"/>
@@ -89,5 +80,16 @@
             private-accepted="false" protected-accepted="false"
             default-accepted="false" static-accepted="false"
             accessors-accepted="false" constructors-accepted="false"/>
+    </Class>
+    <Class name="com.matt.studentinfo.BasicGradingStrategy" x="614" y="10">
+        <AttributesDisplayFilter public-accepted="true"
+            private-accepted="true" protected-accepted="true"
+            default-accepted="true" static-accepted="false"/>
+        <MethodDisplayFilter public-accepted="true"
+            private-accepted="false" protected-accepted="false"
+            default-accepted="false" static-accepted="false"
+            accessors-accepted="false" constructors-accepted="false"/>
+        <Extension destinationClassName="com.matt.studentinfo.GradingStrategy"/>
+        <Communication destinationClassName="com.matt.studentinfo.Student.Grade"/>
     </Class>
 </ClassDiagram>
