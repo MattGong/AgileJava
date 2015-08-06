@@ -1,0 +1,8 @@
+<!-- page 122 -->
+<?xml version="1.0"?>
+<project name="agilejava" default="junitgui" basedir=".">
+    <property name="junitJar" value="\junit3.8.1\junit.jar" />
+    <property name="src.dir" value="${basedir}\source" />
+    
+    
+</project>

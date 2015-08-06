@@ -28,14 +28,56 @@ public class Student {
 	public static final String IN_STATE = "CO";
 	private List<Grade> grades = new ArrayList<Grade>();
 	private GradingStrategy gradingStrategy = new BasicGradingStrategy();
+	private String firstName = "";
+	private String middleName = "";
+	private String lastName;
 	
-	public Student(String name) {
-		this.name = name;
+	
+
+	public Student(String fullName) {
+		this.name = fullName;
 		this.credits = 0;
+		List<String> parts = split(fullName);
+		setName(parts);
+	}
+
+	private void setName(List<String> parts) {
+		if(parts.size() == 1){
+			this.lastName = parts.get(0);
+		}else if(parts.size() == 2){
+			this.firstName = parts.get(0);
+			this.lastName = parts.get(1);
+		}else{
+			this.firstName = parts.get(0);
+			this.middleName = parts.get(1);
+			this.lastName = parts.get(2);
+		}
+		
+	}
+
+	private List<String> split(String fullName) {
+		List<String> parts = new ArrayList<String>();
+		String[] partName = fullName.split(" ");
+		for(String name : partName){
+			parts.add(name);
+		}
+		return parts;
 	}
 
 	public String getName() {
 		return name;
+	}
+	
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public String getMiddleName() {
+		return middleName;
+	}
+
+	public String getLastName() {
+		return lastName;
 	}
 
 	public boolean isFullTime() {

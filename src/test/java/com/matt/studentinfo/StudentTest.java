@@ -9,12 +9,25 @@ public void testCreate(){
 		final String firstSudentName = "Jane Doe";
 		Student student = new Student("Jane Doe");
 		assertEquals(firstSudentName, student.getName());
+		assertEquals("Jane", student.getFirstName());
+		assertEquals("", student.getMiddleName());
+		assertEquals("Doe",student.getLastName());
 		
-		final String secondStudentName = "Joe Blow";
-		Student secondStudent = new Student("Joe Blow");
+		final String secondStudentName = "Blow";
+		Student secondStudent = new Student("Blow");
 		assertEquals(secondStudentName, secondStudent.getName());
+		assertEquals("", secondStudent.getFirstName());
+		assertEquals("", secondStudent.getMiddleName());
+		assertEquals("Blow",secondStudent.getLastName());
 		
 		assertEquals(firstSudentName, student.getName());
+		
+		final String thirdStudentName = "Raymond Bouglas Davies";
+		Student thirdStudent = new Student(thirdStudentName);
+		assertEquals(secondStudentName, secondStudent.getName());
+		assertEquals("Raymond", thirdStudent.getFirstName());
+		assertEquals("Bouglas", thirdStudent.getMiddleName());
+		assertEquals("Davies",thirdStudent.getLastName());
 	}
 	
 	
