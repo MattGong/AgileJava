@@ -1,5 +1,7 @@
 package com.matt.studentinfo;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -12,6 +14,7 @@ import java.util.List;
 	private List<Student> students = new ArrayList<Student>();
 	private Date startDate;
 	private int numberOfCredits;
+	private URL url;
 	
 
 	protected Session(String department, String number, Date startDate) {
@@ -19,6 +22,24 @@ import java.util.List;
 		this.number = number;
 		this.startDate = startDate;
 		
+	}
+	
+	public void setUrl(String urlString) throws SessionException{
+		try{
+			this.url = new URL(urlString);
+		}catch(MalformedURLException e){
+			log(e);
+			throw new SessionException(e);
+		}
+	}
+	
+	private void log(MalformedURLException e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public URL getUrl(){
+		return url;
 	}
 	
 	public String getDepartment(){

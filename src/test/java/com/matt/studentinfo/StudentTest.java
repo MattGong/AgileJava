@@ -30,6 +30,14 @@ public void testCreate(){
 		assertEquals("Davies",thirdStudent.getLastName());
 	}
 	
+    public void testCharges(){
+    	Student student = new Student("a");
+    	student.addCharge(500);
+    	student.addCharge(200);
+    	student.addCharge(399);
+    	
+    	assertEquals(1099,student.getCharges());
+    }
 	
 	public void testStudentStatus(){
 		Student student = new Student("a");
@@ -92,7 +100,22 @@ public void testCreate(){
 		return student;
 	}
 	
+	public void testBadlyFormattedName(){
+		final String studentName = "a b c d";
+		try{
+			new Student(studentName);
+			fail("expected exception from 4-part name");
+		}catch(StudentNameFormatException expectedException){	
+			String message = String.format(Student.TOO_MANY_NAME_PARTS_MSG, studentName, Student.MAX_NAME_PARTS);
+			assertEquals(message, expectedException.getMessage());
+			assertTrue(wasLogged(message));
+		}
+	}
 
+	private boolean wasLogged(String message) {
+		
+		return false;
+	}
 
 	private void assertGpa(Student student, double expectedGpa){
 		assertEquals(expectedGpa, student.getGpa(), GRADE_TOLERANCE);

@@ -1,13 +1,10 @@
 package com.matt.studentinfo;
 
+import java.net.MalformedURLException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-
-import com.matt.studentinfo.CourseSession;
-import com.matt.studentinfo.DateUtil;
 import com.matt.studentinfo.Student;
-
 import junit.framework.TestCase;
 
 abstract public class SessionTest extends TestCase {
@@ -59,6 +56,23 @@ abstract public class SessionTest extends TestCase {
 		Session sessionD = createSession("CMSC", "210", date);
 		assertTrue(sessionC.compareTo(sessionD) < 0 );
 		assertTrue(sessionD.compareTo(sessionC) > 0 );
+	}
+	
+	public void testSessionUrl() throws SessionException{
+		final String url = "http://course.langrsoft.com/cmsc300";
+		session.setUrl(url);
+		assertEquals(url, session.getUrl().toString());
+	}
+	
+	public void testInvalidSessionUrl(){
+		final String url = "httsp://course.langrsoft.com/cmsc300";
+		try{
+		session.setUrl(url);
+		fail("expected exception due to invalid protocol in URL");
+		}catch(SessionException expectedException){
+			Throwable cause = expectedException.getCause();
+			assertEquals(MalformedURLException.class, cause.getClass());
+		}
 	}
 	
 	Date createDate(int year, int month, int date) {

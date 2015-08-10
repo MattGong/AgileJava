@@ -1,6 +1,7 @@
 package com.matt.studentinfo;
 
 import java.util.*;
+import java.util.logging.Logger;
 
 
 public class Student {
@@ -26,11 +27,15 @@ public class Student {
 	private String state = "";
 	public static final int CREDITS_REQUIRED_FOR_FULL_TIME = 12;
 	public static final String IN_STATE = "CO";
+	public static final int MAX_NAME_PARTS = 3;
+	public static final String TOO_MANY_NAME_PARTS_MSG = "Student name '%s' contains more than %d parts";
 	private List<Grade> grades = new ArrayList<Grade>();
 	private GradingStrategy gradingStrategy = new BasicGradingStrategy();
 	private String firstName = "";
 	private String middleName = "";
 	private String lastName;
+	//学费
+	private List<Integer> charges = new ArrayList<Integer>();
 	
 	
 
@@ -38,30 +43,54 @@ public class Student {
 		this.name = fullName;
 		this.credits = 0;
 		List<String> parts = split(fullName);
+		if(parts.size() > MAX_NAME_PARTS){
+			String message = String.format(TOO_MANY_NAME_PARTS_MSG, fullName,MAX_NAME_PARTS);
+			log(message);
+			throw new StudentNameFormatException(message);}
 		setName(parts);
 	}
+	
+	private void log(String message) {
+		Logger logger = Logger.getLogger(getClass().getName());
+		logger.info(message);
+		
+	}
 
-	private void setName(List<String> parts) {
-		if(parts.size() == 1){
-			this.lastName = parts.get(0);
-		}else if(parts.size() == 2){
-			this.firstName = parts.get(0);
-			this.lastName = parts.get(1);
-		}else{
-			this.firstName = parts.get(0);
-			this.middleName = parts.get(1);
-			this.lastName = parts.get(2);
+	public void addCharge(int charge){
+		charges.add(charge);
+	}
+	
+	public int getCharges(){
+		int total = 0;
+		for(Integer charge : charges){
+			total += charge;
+		}
+		return total;
+	}
+
+	private void setName(List<String> nameParts) {
+
+		this.lastName = removeLast(nameParts);
+		String name = removeLast(nameParts);
+		if(nameParts.isEmpty()) this.firstName = name;
+		else{
+			this.middleName = name;
+			this.firstName = removeLast(nameParts);
 		}
 		
 	}
 
+	private String removeLast(List<String> list) {
+		if(list.isEmpty()) return "";
+		return list.remove(list.size()-1);
+	}
+
 	private List<String> split(String fullName) {
-		List<String> parts = new ArrayList<String>();
-		String[] partName = fullName.split(" ");
-		for(String name : partName){
-			parts.add(name);
+		List<String> results = new ArrayList<String>();
+		for(String name: fullName.split(" ")){
+			results.add(name);
 		}
-		return parts;
+		return results;
 	}
 
 	public String getName() {
