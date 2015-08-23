@@ -4,6 +4,7 @@ import java.util.*;
 import java.util.logging.Logger;
 
 
+
 public class Student {
 	public enum Grade{
 		A(4),
@@ -36,25 +37,24 @@ public class Student {
 	private String lastName;
 	//学费
 	private List<Integer> charges = new ArrayList<Integer>();
+	final static Logger logger = Logger.getLogger(Student.class.getName());
 	
 	
 
 	public Student(String fullName) {
+		
 		this.name = fullName;
 		this.credits = 0;
 		List<String> parts = split(fullName);
 		if(parts.size() > MAX_NAME_PARTS){
 			String message = String.format(TOO_MANY_NAME_PARTS_MSG, fullName,MAX_NAME_PARTS);
-			log(message);
-			throw new StudentNameFormatException(message);}
+			logger.info(message);
+			throw new StudentNameFormatException(message);
+			}
+		
 		setName(parts);
 	}
-	
-	private void log(String message) {
-		Logger logger = Logger.getLogger(getClass().getName());
-		logger.info(message);
-		
-	}
+
 
 	public void addCharge(int charge){
 		charges.add(charge);
@@ -137,12 +137,13 @@ public class Student {
 	}
 	
 	public double getGpa() {
+		logger.info("begin getGpa "+ System.currentTimeMillis());
 		if(grades.isEmpty()) return 0.0;
 		double total = 0.0;
 		for(Grade grade : grades){
 			total += gradingStrategy.getGradePointsFor(grade);
 		}
-		
+		logger.info("end getGap "+ System.currentTimeMillis());
 		return total / grades.size();
 	}
 	

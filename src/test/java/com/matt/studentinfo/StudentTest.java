@@ -1,5 +1,9 @@
 package com.matt.studentinfo;
 
+
+import java.util.logging.Handler;
+import java.util.logging.Logger;
+
 import junit.framework.TestCase;
 
 public class StudentTest extends TestCase {
@@ -101,6 +105,9 @@ public void testCreate(){
 	}
 	
 	public void testBadlyFormattedName(){
+		Logger logger = Logger.getLogger(Student.class.getName());
+		Handler handler = new TestHandler();
+		logger.addHandler(handler);
 		final String studentName = "a b c d";
 		try{
 			new Student(studentName);
@@ -108,13 +115,13 @@ public void testCreate(){
 		}catch(StudentNameFormatException expectedException){	
 			String message = String.format(Student.TOO_MANY_NAME_PARTS_MSG, studentName, Student.MAX_NAME_PARTS);
 			assertEquals(message, expectedException.getMessage());
-			assertTrue(wasLogged(message));
+			assertTrue(wasLogged(message,(TestHandler)handler));
 		}
 	}
 
-	private boolean wasLogged(String message) {
+	private boolean wasLogged(String message,TestHandler handler) {
 		
-		return false;
+		return message.equals(handler.getMessage());
 	}
 
 	private void assertGpa(Student student, double expectedGpa){
