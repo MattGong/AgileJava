@@ -22,7 +22,7 @@ public class Student {
 		}
 		}
 	
-	
+	private String id;
 	private String name;
 	private int credits;
 	private String state = "";
@@ -40,7 +40,7 @@ public class Student {
 	final static Logger logger = Logger.getLogger(Student.class.getName());
 	
 	
-
+	
 	public Student(String fullName) {
 		
 		this.name = fullName;
@@ -113,6 +113,10 @@ public class Student {
 		return credits >= CREDITS_REQUIRED_FOR_FULL_TIME;
 	}
 
+	public void setCredits(int credits){
+		this.credits = credits;
+	}
+	
 	public int getCredits() {
 
 		return credits;
@@ -150,6 +154,18 @@ public class Student {
 	
 	public void setGradingStrategy(GradingStrategy gradingStrategy) {
 		this.gradingStrategy = gradingStrategy;	
+	}
+
+
+	public String getId() {
+		
+		return this.id;
+	}
+
+
+	public void setId(String id) {
+		this.id = id;
+		
 	}
 
 }

@@ -7,11 +7,13 @@ import java.util.GregorianCalendar;
 import com.matt.studentinfo.Student;
 import junit.framework.TestCase;
 
+
 abstract public class SessionTest extends TestCase {
 	private Session session;
 	private Date startDate;
 	private static final int CREDITS = 3;
 	
+
 	public void setUp(){
 		startDate = createDate(2003, 1,6);
 		session = createSession("ENGL","101",startDate);
